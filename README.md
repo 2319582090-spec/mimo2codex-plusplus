@@ -315,6 +315,15 @@ MIT License
 
 ---
 
+## 📞 联系方式
+
+- **邮箱：** 2319582090@qq.com
+- **邮箱：** 2319582090z@gmail.com
+- **GitHub Issues：** https://github.com/2319582090-spec/mimo2codex-plusplus/issues
+- **GitHub Discussions：** https://github.com/2319582090-spec/mimo2codex-plusplus/discussions
+
+---
+
 ## 📸 效果展示
 
 ### 429 错误示例（使用前）
@@ -328,15 +337,6 @@ MIT License
 ### Dashboard 看板
 
 ![Dashboard](images/dashboard.png)
-
----
-
-## 📞 联系方式
-
-- **邮箱 1：** 2319582090@qq.com
-- **邮箱 2：** 2319582090z@gmail.com
-- **GitHub Issues：** https://github.com/2319582090-spec/mimo2codex-plusplus/issues
-- **GitHub Discussions：** https://github.com/2319582090-spec/mimo2codex-plusplus/discussions
 
 ---
 
