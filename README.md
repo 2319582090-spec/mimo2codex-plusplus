@@ -39,7 +39,7 @@
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
-cd mimo2codex-plusplus
+cd mimo2codex++
 
 # 2. 运行安装脚本
 ./install.sh
@@ -53,7 +53,7 @@ pnpm dev
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
-cd mimo2codex-plusplus
+cd mimo2codex++
 
 # 2. 安装依赖
 pnpm install
@@ -177,7 +177,7 @@ pnpm dev
 ## 📁 项目结构
 
 ```
-mimo2codex-plusplus/
+mimo2codex++/
 ├── src/
 │   ├── app/
 │   │   ├── api/           # API 路由
@@ -291,7 +291,7 @@ pnpm dev
 ```bash
 # 克隆仓库
 git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
-cd mimo2codex-plusplus
+cd mimo2codex++
 
 # 安装依赖
 pnpm install
