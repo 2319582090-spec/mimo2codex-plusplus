@@ -12,13 +12,9 @@
 
 ### 解决了什么问题？
 
-在使用小米 MiMo API 时，单账号经常遇到 `429 Too Many Requests` 错误，任务频繁失败。根本原因是**单账号存在严格的并发和速率限制**：
+在使用小米 MiMo API 时，单账号经常遇到 `429 Too Many Requests` 错误，任务频繁失败。根本原因是**单账号存在严格的并发和速率限制**。
 
-![429 错误示例](images/429-error.jpeg)
-
-**mimo2codex++ 通过多账号并发，彻底突破了这个限制：**
-
-![多账号并发运行](images/multi-account.png)
+**mimo2codex++ 通过多账号并发，彻底突破了这个限制！**
 
 ### 核心能力
 
@@ -39,7 +35,7 @@
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
-cd mimo2codex++
+cd mimo2codex-plusplus
 
 # 2. 运行安装脚本
 ./install.sh
@@ -53,7 +49,7 @@ pnpm dev
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
-cd mimo2codex++
+cd mimo2codex-plusplus
 
 # 2. 安装依赖
 pnpm install
@@ -97,19 +93,6 @@ pnpm dev
 | RPM | 500 | 1500 | **3x** |
 | TPM | 100K | 300K | **3x** |
 | 429 风险 | 高 | 低 | **大幅降低** |
-
----
-
-## 🖥️ 界面预览
-
-### Dashboard 看板
-
-![Dashboard](images/dashboard.png)
-
-- 账号池状态总览
-- 实例健康状态
-- 请求统计（成功/失败/429）
-- 冷却状态和恢复时间
 
 ---
 
@@ -291,7 +274,7 @@ pnpm dev
 ```bash
 # 克隆仓库
 git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
-cd mimo2codex++
+cd mimo2codex-plusplus
 
 # 安装依赖
 pnpm install
@@ -332,6 +315,22 @@ MIT License
 
 ---
 
+## 📸 效果展示
+
+### 429 错误示例（使用前）
+
+![429 错误示例](images/429-error.jpeg)
+
+### 多账号并发运行（使用后）
+
+![多账号并发运行](images/multi-account.png)
+
+### Dashboard 看板
+
+![Dashboard](images/dashboard.png)
+
+---
+
 ## 📞 联系方式
 
 - **邮箱 1：** 2319582090@qq.com
@@ -343,6 +342,10 @@ MIT License
 
 ## ⭐ 支持项目
 
-如果这个项目对你有帮助，请给个 Star ⭐ 让更多人看到！
+如果这个项目对你有帮助，欢迎赞赏支持！
+
+![赞赏支持](images/donate.jpg)
+
+也可以给个 Star ⭐ 让更多人看到！
 
 **mimo2codex++** — 让多账号并发不再受限，让 429 错误成为历史。
