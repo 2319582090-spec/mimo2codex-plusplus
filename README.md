@@ -1,42 +1,34 @@
 # mimo2codex++
 
-**多账号 MiMo 网关 + 额度看板** — 通过多账号并发突破单账号并发上限，解决 429 限流问题。
-
-> Display name: **mimo2codex++**  
-> npm / folder naming: **mimo2codex-plusplus**
+**多账号 MiMo 网关 + 额度看板** — 通过多账号并发突破单账号并发上限，彻底解决 429 限流问题。
 
 ---
 
-## 🎯 为什么需要 mimo2codex++？
+## 📖 项目简介
 
-使用单个小米 Key 时，经常遇到 `429 Too Many Requests` 错误，任务频繁失败。原因是单账号存在并发和速率限制。
+### 为什么叫 mimo2codex++？
 
-### 小米套餐并发上限
+这个项目基于 [mimo2codex](https://github.com/user/mimo2codex) 的核心能力，在其基础上增加了**多账号并发调度**和**额度可观测**两大关键功能。`++` 代表在原有基础上的增强版，就像编程语言中的 `i++` 一样，在原有基础上更进一步。
 
-| 套餐 | 并发上限 |
-|------|----------|
-| Lite（39 元） | 5 并发 |
-| Standard（99 元） | 20 并发 |
-| Pro/Max（329/659 元） | 不设上限* |
+### 解决了什么问题？
 
-*受 TPM 与集群负载约束
+在使用小米 MiMo API 时，单账号经常遇到 `429 Too Many Requests` 错误，任务频繁失败。根本原因是**单账号存在严格的并发和速率限制**：
 
-### API 速率限制（所有套餐）
+![429 错误示例](images/429-error.jpeg)
 
-| 限制类型 | 默认值 |
-|----------|--------|
-| RPM（每分钟请求数） | 500 |
-| TPM（每分钟 Token） | 100,000 |
+**mimo2codex++ 通过多账号并发，彻底突破了这个限制：**
 
-超限返回 `429 Too Many Requests`
+![多账号并发运行](images/multi-account.png)
 
-### ✅ mimo2codex++ 的解决方案
+### 核心能力
 
-通过**多账号并发**，将请求分散到多个 Key，突破单账号的并发上限和 RPM/TPM 限制。
-
-**示例：** 3 个 Standard 套餐账号 = 60 并发 + 1500 RPM + 300K TPM
-
-系统自动处理 429 限流、冷却避让和健康调度。
+| 能力 | 说明 |
+|------|------|
+| **突破并发上限** | 多账号叠加，并发数成倍增长 |
+| **突破 RPM 限制** | 多账号分散请求，RPM 上限翻倍 |
+| **突破 TPM 限制** | 多账号分担 Token 消耗，TPM 上限翻倍 |
+| **自动 429 避让** | 遇到限流自动切换到其他账号 |
+| **额度可视化** | 实时查看每个账号的使用情况 |
 
 ---
 
@@ -46,7 +38,7 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/YOUR_USERNAME/mimo2codex-plusplus.git
+git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
 cd mimo2codex-plusplus
 
 # 2. 运行安装脚本
@@ -60,7 +52,7 @@ pnpm dev
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/YOUR_USERNAME/mimo2codex-plusplus.git
+git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
 cd mimo2codex-plusplus
 
 # 2. 安装依赖
@@ -73,12 +65,51 @@ cp .env.local.example .env.local
 pnpm dev
 ```
 
-### 方式三：Docker（即将支持）
+---
 
-```bash
-docker pull YOUR_USERNAME/mimo2codex-plusplus
-docker run -p 4020:4020 YOUR_USERNAME/mimo2codex-plusplus
-```
+## 📊 小米 MiMo 并发限制说明
+
+### 一、套餐并发上限（Token Plan）
+
+| 套餐 | 价格 | 并发上限 |
+|------|------|----------|
+| **Lite** | 39 元 | 5 并发 |
+| **Standard** | 99 元 | 20 并发 |
+| **Pro** | 329 元 | 不设上限* |
+| **Max** | 659 元 | 不设上限* |
+
+*受 TPM 与集群负载约束
+
+### 二、API 速率限制（所有套餐通用）
+
+| 限制类型 | 默认值 | 超限响应 |
+|----------|--------|----------|
+| **RPM**（每分钟请求数） | 500 | 429 Too Many Requests |
+| **TPM**（每分钟 Token 数） | 100,000 | 429 Too Many Requests |
+
+### 三、mimo2codex++ 如何突破限制？
+
+**示例：** 3 个 Standard 套餐账号
+
+| 指标 | 单账号 | 3 账号并发 | 提升 |
+|------|--------|-----------|------|
+| 并发上限 | 20 | 60 | **3x** |
+| RPM | 500 | 1500 | **3x** |
+| TPM | 100K | 300K | **3x** |
+| 429 风险 | 高 | 低 | **大幅降低** |
+
+---
+
+## 🖥️ 界面预览
+
+### Dashboard 看板
+
+![Dashboard](images/dashboard.png)
+
+- 账号池状态总览
+- 实例健康状态
+- 请求统计（成功/失败/429）
+- 冷却状态和恢复时间
 
 ---
 
@@ -117,7 +148,7 @@ pnpm dev
 
 ---
 
-## 🏗️ 核心功能
+## 🏗️ 核心功能详解
 
 ### 多账号并发调度
 - 每个 Key 对应一个 mimo2codex 实例
@@ -125,15 +156,16 @@ pnpm dev
 - 健康检查和自动重启
 
 ### 智能负载均衡
-- Health-weighted round robin
-- 429 冷却避让
-- Inflight 感知
-- 自动故障转移
+- **Health-weighted round robin** — 健康实例优先
+- **429 冷却避让** — 遇到限流自动切换
+- **Inflight 感知** — 优先选择负载较低的实例
+- **自动故障转移** — 实例故障时自动切换
 
 ### 额度看板
 - 实时显示每个 Key 的状态
 - 请求统计（成功/失败/429）
 - 冷却状态和恢复时间
+- 上游不可用时降级显示
 
 ### 一键配置
 - 自动生成 Codex 配置文件
@@ -159,6 +191,7 @@ mimo2codex-plusplus/
 │       ├── key-store.ts   # Key 持久化
 │       ├── pool-manager.ts # 实例池管理
 │       └── quota-client.ts # 额度查询
+├── images/                # 文档截图
 ├── install.sh             # 一键安装脚本
 └── README.md              # 本文件
 ```
@@ -179,9 +212,9 @@ PORT=4020
 LOG_LEVEL=info
 ```
 
-### Codex 配置
+### Codex 配置示例
 
-生成的 `config.toml` 示例：
+生成的 `config.toml`：
 
 ```toml
 model = "mimo-v2.5-pro"
@@ -204,7 +237,7 @@ request_max_retries = 1
 
 ## 🛡️ 安全说明
 
-- API Key 使用 AES-256-GCM 加密存储
+- API Key 使用 **AES-256-GCM** 加密存储
 - 加密密钥自动生成并存储在 `data/.encryption-key`
 - Key 仅在本地存储，不会上传到任何服务器
 - 前端仅显示 Key 的前缀和后缀
@@ -213,20 +246,19 @@ request_max_retries = 1
 
 ## 📊 性能说明
 
-### 多账号并发的优势
-
-| 场景 | 单账号 | 3 个 Standard 账号 |
-|------|--------|-------------------|
-| 并发上限 | 20 | 60 |
-| RPM | 500 | 1500 |
-| TPM | 100K | 300K |
-| 429 风险 | 高 | 低 |
-
 ### 资源消耗
 
 - 每个 mimo2codex 实例占用约 50-100MB 内存
 - 网关调度开销极低（<1ms）
 - 建议：实例数量 ≤ CPU 核心数
+
+### 注意事项
+
+⚠️ **多账号并发调度不是免费加速器**
+
+- 会占用额外的本地/服务器计算资源
+- 会更快消耗上游 API 额度
+- 适合需要高并发、高可用的场景
 
 ---
 
@@ -242,7 +274,6 @@ A: 检查 mimo2codex 是否安装：`which mimo2codex`
 A: 检查 Key 格式是否正确（`tp-xxx` 或 `sk-xxx`）
 
 ### Q: 如何更新到最新版本？
-A: 
 ```bash
 git pull
 pnpm install
@@ -259,7 +290,7 @@ pnpm dev
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/mimo2codex-plusplus.git
+git clone https://github.com/2319582090-spec/mimo2codex-plusplus.git
 cd mimo2codex-plusplus
 
 # 安装依赖
@@ -295,7 +326,7 @@ MIT License
 
 ## 🙏 致谢
 
-- [mimo2codex](https://github.com/user/mimo2codex) - 原始项目
+- [mimo2codex](https://github.com/user/mimo2codex) - 原始项目，提供核心的 MiMo 到 Codex 协议转换能力
 - [Next.js](https://nextjs.org/) - Web 框架
 - [Tailwind CSS](https://tailwindcss.com/) - 样式框架
 
@@ -303,9 +334,15 @@ MIT License
 
 ## 📞 联系方式
 
-- Issues: https://github.com/YOUR_USERNAME/mimo2codex-plusplus/issues
-- Discussions: https://github.com/YOUR_USERNAME/mimo2codex-plusplus/discussions
+- **邮箱 1：** 2319582090@qq.com
+- **邮箱 2：** 2319582090z@gmail.com
+- **GitHub Issues：** https://github.com/2319582090-spec/mimo2codex-plusplus/issues
+- **GitHub Discussions：** https://github.com/2319582090-spec/mimo2codex-plusplus/discussions
 
 ---
 
-**⭐ 如果这个项目对你有帮助，请给个 Star！**
+## ⭐ 支持项目
+
+如果这个项目对你有帮助，请给个 Star ⭐ 让更多人看到！
+
+**mimo2codex++** — 让多账号并发不再受限，让 429 错误成为历史。
